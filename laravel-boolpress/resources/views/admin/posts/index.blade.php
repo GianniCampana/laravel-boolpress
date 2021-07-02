@@ -3,6 +3,10 @@
 @section('content')
 <div class="container">
 <h1>I miei post</h1>
+@if (session('deleted'))
+<span class="alert alert-success"><strong>{{session('deleted')}}</strong>
+eliminato correttamente</span>
+@endif
 
 <table class="table">
     <thead>
@@ -23,7 +27,13 @@
                 <td>
                     <a class="btn btn-info" href="{{route('admin.posts.edit', $post)}}">EDIT</a>
                 </td>
-                <td>DELETE</td>
+                <td>
+                    <form action="{{route('admin.posts.destroy',$post)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">DELETE</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </tbody>
