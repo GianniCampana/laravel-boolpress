@@ -13,6 +13,7 @@ eliminato correttamente</span>
         <tr>
             <th>ID</th>
             <th>TITLE</th>
+            <th>CATEGORY</th>
             <th>ACTIONS</th>
         </tr>
     </thead>
@@ -21,6 +22,15 @@ eliminato correttamente</span>
             <tr>
                 <td>{{$post->id}}</td>
                 <td>{{$post->title}}</td>
+                <td>
+                
+                    @if($post->category)
+                    {{$post->category->name}}
+                    @else
+                    -    
+                    @endif
+
+                </td>
                 <td>
                     <a  class="btn btn-primary" href="{{route('admin.posts.show', $post)}}">SHOW</a>
                 </td>
@@ -38,6 +48,24 @@ eliminato correttamente</span>
         @endforeach
     </tbody>
 </table>
+
+@foreach ($categories as $category)
+    <h3>
+        {{$category->name}}
+    </h3>
+    <ul>
+
+        @forelse ($category->posts as $post_category)
+            <li>
+                <a href="{{route('admin.posts.show',$post_category)}}">{{$post_category->title}}</a>
+            </li>
+        @empty
+            <li>Nessun post!</li>
+        @endforelse
+
+    </ul>
+    
+@endforeach
 
 </div>
 @endsection
