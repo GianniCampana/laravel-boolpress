@@ -15,6 +15,7 @@ eliminato correttamente</span>
             <th>TITLE</th>
             <th>CATEGORY</th>
             <th>ACTIONS</th>
+            <th>TAGS</th>
         </tr>
     </thead>
     <tbody>
@@ -23,11 +24,16 @@ eliminato correttamente</span>
                 <td>{{$post->id}}</td>
                 <td>{{$post->title}}</td>
                 <td>
-                
+                    @foreach ($post->tags as $tag)
+                        <span class="badge badge-primary">{{ $tag->name }}</span>
+                    @endforeach
+                </td>
+                <td>
+
                     @if($post->category)
                     {{$post->category->name}}
                     @else
-                    -    
+                    -
                     @endif
 
                 </td>
@@ -64,7 +70,7 @@ eliminato correttamente</span>
         @endforelse
 
     </ul>
-    
+
 @endforeach
 
 </div>

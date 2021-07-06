@@ -8,9 +8,16 @@
     Categoria:
     {{$post->category->name}}
     @else
-    Nessuna categoria! 
+    Nessuna categoria!
     @endif
 </h3>
+<div>
+   @forelse($post->tags as $tag)
+        <span class="badge badge-primary">{{ $tag->name }}</span>
+   @empty
+    -
+   @endforelse
+</div>
 <p>{{$post->content}}</p>
 <div>
     <a class="btn btn-info" href="{{route('admin.posts.edit', $post)}}">EDIT</a>
