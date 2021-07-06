@@ -18,7 +18,7 @@
 @endif
 <div>
     <form action="{{route('admin.posts.store')}}" method="POST">
-        @csrf 
+        @csrf
         @method('POST')
 
         <div class="mb-3">
@@ -51,7 +51,7 @@
                         <option
                         @if(old('category_id') == $category->id) selected @endif
                          value="{{$category->id}}">{{$category->name}}</option>
-                            
+
                         @endforeach
 
                 </select>
@@ -60,6 +60,21 @@
                             {{$message}}
                         </p>
                     @enderror
+        </div>
+
+        <div class="mb-4">
+            <h3>Tags</h3>
+            @foreach ($tags as $tag)
+                <span class="d-inline-block mr-3">
+                    <input type="checkbox" id="tag{{ $loop->iteration }}"
+                    name="tags[]"
+                    value="{{ $tag->id }}"
+                    @if (in_array($tag->id,old('tags',[])))
+                    checked
+                    @endif>
+                    <label for="tag{{ $loop->iteration }}">{{ $tag->name }}</label>
+                </span>
+            @endforeach
         </div>
 
         <div>

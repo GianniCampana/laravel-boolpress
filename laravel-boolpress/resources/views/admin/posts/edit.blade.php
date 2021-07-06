@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 <h1>
-    Modifica: 
+    Modifica:
     <a href="{{route('admin.posts.show', $post)}}">{{$post->title}}</a>
 </h1>
 @if($errors->any())
@@ -21,7 +21,7 @@
 @endif
 <div>
     <form action="{{route('admin.posts.update', $post)}}" method="POST">
-        @csrf 
+        @csrf
         @method('PATCH')
 
         <div class="mb-3">
@@ -53,7 +53,7 @@
                     <option
                     @if(old('category_id', $post->category_id) == $category->id) selected @endif
                      value="{{$category->id}}">{{$category->name}}</option>
-                        
+
                     @endforeach
 
             </select>
@@ -62,6 +62,23 @@
                         {{$message}}
                     </p>
                 @enderror
+    </div>
+
+    <div class="mb-4">
+        <h3>Tags</h3>
+        @foreach ( $tags as $tag )
+            <span class="d-inline-block mr-3">
+                <input type="checkbox" id="tag{{ $loop->iteration }}"
+                name="tags[]"
+                value="{{ $tag->id }}"
+                @if (in_array($tag->id,old('tags',[])) && $errors->any() ))
+                checked
+                @elseif(!$errors->any()&& $post->tags->contains($tag->id))
+                checked
+                @endif>
+                <label for="tag{{ $loop->iteration }}">{{ $tag->name }}</label>
+            </span>
+        @endforeach
     </div>
 
         <div>

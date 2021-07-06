@@ -27,6 +27,7 @@ class PostRequest extends FormRequest
             'title'=>'required|max:10',
             'content'=>'required|min:3',
             'category_id'=>'nullable|exists:categories,id',
+            'tags'=>'nullable|exists:tags,id',
         ];
     }
     public function messages(){
@@ -36,7 +37,8 @@ class PostRequest extends FormRequest
             'content.required'=> 'Il contenuto è un campo obbligatorio',
             'content.min'=> 'Il contenuto deve avere un minimo di :min caratteri',
             'title.max'=> 'Il contenuto deve avere un massimo di :max caratteri',
-            'category_id.exists'=>'Categoria inesistente'
+            'category_id.exists'=>'Categoria inesistente',
+            'tags.exists'=>'Tag inesistente',
         ];
     }
 }
