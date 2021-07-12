@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', 'PageController@index');
+/* Route::get('/', 'PageController@index'); */
 
 Auth::routes();
 
@@ -19,4 +19,13 @@ Route::middleware('auth')
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+/* Route::get('/home', 'HomeController@index')->name('home'); */
+
+
+/* rotta che serve a vue per gestire tutte le rotte possibili alternative a quelle Auth e admin */
+/* Route::get('{any?}', 'PageController@index')->where('any','.*'); */
+
+
+Route::get('{any?}', function(){
+    return view('guest.home');
+})->where('any','.*');

@@ -2,7 +2,11 @@
 <div>
     <Header />
     <main class="container">
-        app vue
+
+   <!--    questo è un tag vue che riceve i componenti ignettati dal router!! -->
+        <router-view></router-view>
+
+
     </main>
 </div>
 </template>
