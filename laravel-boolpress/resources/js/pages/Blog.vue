@@ -4,29 +4,30 @@
       <h1>Il mio blog</h1>
 
       <div v-if="!loaded" class="text-center mt-5">
-          <div class="lds-heart"><div></div></div>
+          <Loader />
       </div>
 
       <!-- lista posts -->
+      <div v-else>
+          <Card
 
-      <div v-if="loaded"
-      v-for="post in posts"
-      :key="'p'+post.id"
-      class="card mb-3">
-          <div class="card-body">
-              <div class="d-flex justify-content-between">
-                  <h5 class="card-title">{{post.title}}</h5>
-                  <span class="badge badge-success custom-badge">{{post.category}}</span>
-              </div>
-              <i>{{formatDate(post.date)}}</i>
-              <p class="card-text">{{post.content}}</p>
-              <a href="#" class="btn btn-primary">Vai</a>
-          </div>
+          v-for="post in posts"
+          :key="'p'+post.id"
+          :title="post.title"
+          :category="post.category"
+          :date="FormatDate.format(post.date)"
+          :content="post.content"
+          :slug="post.slug"
+
+          />
+
       </div>
+
+
 
       <!-- paginazione -->
 
-    <div v-if="loaded">
+    <div>
         <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li
@@ -64,14 +65,22 @@
 <script>
 
 import axios from 'axios';
+import Loader from '../components/Loader.vue';
+import Card from '../components/Card.vue';
+import FormatDate from '../classes/FormatDate';
 
 export default {
     name: 'Blog',
+    components:{
+        Loader,
+        Card
+    },
     data(){
         return{
             posts: [],
             pagination: {},
-            loaded: false
+            loaded: false,
+            FormatDate
 
         }
     },
@@ -96,17 +105,7 @@ export default {
                 console.log(err);
             })
         },
-         formatDate(date){
-        let d = new Date(date);
-        let dy = d.getDate();
-        let m = d.getMonth() + 1;
-        let y = d.getFullYear();
 
-        if(dy < 10) dy = '0' + dy;
-        if(m < 10) m = '0' + m;
-
-        return `${dy}/${m}/${y}`;
-        }
     },
 
     created(){

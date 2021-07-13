@@ -8,6 +8,7 @@ import About from './pages/About.vue';
 import Contact from './pages/Contact.vue';
 import Blog from './pages/Blog.vue';
 import Error404 from './pages/Error404.vue';
+import PostDetail from './pages/PostDetail.vue'
 
 
 
@@ -29,6 +30,11 @@ const router = new VueRouter({
             path: '/contacts',
             name: 'contacts',
             component: Contact,
+        },
+        {
+            path: '/post/:slug',
+            name: 'postDetail',
+            component: PostDetail,
         },
         {
             path: '/blog',
